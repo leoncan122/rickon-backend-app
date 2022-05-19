@@ -2,12 +2,13 @@ import { MiddlewareConsumer, Module, NestModule } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { AuthMiddleware } from './controllers/auth/auth.middleware';
+import { AuthModule } from './controllers/auth/auth.module';
 import { ComprasController } from './controllers/compras/compras.controller';
 import { ComprasModule } from './controllers/compras/compras.module';
 import { ComprasService } from './controllers/compras/compras.service';
 
 @Module({
-  imports: [ComprasModule],
+  imports: [ComprasModule, AuthModule],
   controllers: [AppController, ComprasController],
   providers: [AppService, ComprasService],
 })
