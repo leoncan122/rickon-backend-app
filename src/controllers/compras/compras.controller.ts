@@ -1,8 +1,9 @@
-import { Body, Controller, Delete, Get, HttpStatus, NotFoundException, Param, ParseIntPipe, Post, Put, ServiceUnavailableException, UsePipes } from '@nestjs/common';
+import { Body, Controller, Delete, Get, HttpStatus, NotFoundException, Param, ParseIntPipe, Post, Put, ServiceUnavailableException, UseGuards, UsePipes } from '@nestjs/common';
 import {Compra} from './interfaces/Compra'
 import { ComprasService } from './compras.service';
 import { ValidationPipe } from './validation.pipe';
 import { CreateCompraDto } from './compra.dto';
+import { JwtAuthGuard} from '../auth/jwt-auth.guard';
 
 @Controller('compras')
 export class ComprasController {
@@ -14,7 +15,7 @@ export class ComprasController {
         const response = await this.comprasService.getCompras()
         return response
     }
-
+    @UseGuards(JwtAuthGuard)
     @Get(':id')
     async getCompraById(
         //it would be rejected in case the param is a string 
